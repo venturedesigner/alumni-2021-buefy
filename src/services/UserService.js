@@ -21,10 +21,31 @@ export default {
   async getUsers () {
     try {
       const response = await apiClient.get('/user')
-      console.log(response )
       return response.data
     } catch (err) {
       console.log(err)
     }
+  },
+  async Signup (name, email, password, username) {
+    return await apiClient.post('/auth/signup', {
+      name: name,
+      email: email,
+      password: password,
+      username: username
+    })
+  },
+  async createMyProfile (decription, profilepic, profilebg) {
+    console.log('-->', localStorage.token)
+    return await apiClient.post('/user/profile',
+      {
+        decription: decription,
+        profilepic: profilepic,
+        profilebg: profilebg
+      },
+      {
+        headers:
+    { token: localStorage.token }
+      })
   }
+
 }
